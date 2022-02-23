@@ -1,9 +1,7 @@
 import Head from 'next/head';
 import Tabela from '../components/lista';
 import { PacientsProvider } from '../hooks/usePacients';
-import Buscar from '../components/buscar';
-import handleFetchCall from '../hooks/useFetch';
-import HandleFetchCall from '../hooks/useFetch';
+import Busca from '../components/busca';
 
 
 const Home = () => {
@@ -17,7 +15,7 @@ const Home = () => {
 			<h1>Home</h1>
 			<PacientsProvider>
 				<Tabela />
-				<HandleFetchCall />
+				<Busca />
 			</PacientsProvider>
 		</div>
 	);
