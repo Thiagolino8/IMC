@@ -13,19 +13,22 @@ export interface Paciente {
 export interface Provider {
 	pacientes: Paciente[];
 	useAdd: (paciente: Paciente[]) => void;
+	useReset: () => void;
 }
+
+const initialPacientes: Paciente[] = [
+	{ nome: 'Paulo', peso: 100, altura: 2.0, gordura: 10, imc: 0 },
+	{ nome: 'João', peso: 80, altura: 1.72, gordura: 40, imc: 0 },
+	{ nome: 'Maria', peso: 40, altura: 1.64, gordura: 14, imc: 0 },
+	{ nome: 'Douglas', peso: 85, altura: 1.73, gordura: 24, imc: 0 },
+	{ nome: 'Tatiana', peso: 46, altura: 1.55, gordura: 19, imc: 0 },
+];
 
 export const PacientesContext = createContext({} as Provider);
 export const usePacients = () => useContext(PacientesContext);
 
 export const PacientsProvider = ({ children }: { children: ReactNode }) => {
-	const [pacientes, setPacientes] = useState([
-		{ nome: 'Paulo', peso: 100, altura: 2.00, gordura: 10, imc: 0 },
-		{ nome: 'João', peso: 80, altura: 1.72, gordura: 40, imc: 0 },
-		{ nome: 'Maria', peso: 40, altura: 1.64, gordura: 14, imc: 0 },
-		{ nome: 'Douglas', peso: 85, altura: 1.73, gordura: 24, imc: 0 },
-		{ nome: 'Tatiana', peso: 46, altura: 1.55, gordura: 19, imc: 0 },
-	]);
+	const [pacientes, setPacientes] = useState(initialPacientes);
 
 	useEffect(() => {
 		const novoArray = pacientes.map(paciente => {
@@ -35,10 +38,15 @@ export const PacientsProvider = ({ children }: { children: ReactNode }) => {
 		setPacientes(novoArray);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
+	
+	const useReset = () => { 
+		setPacientes(initialPacientes);
+	}
+	
 	const useAdd = (paciente: Paciente[]) => {
 		setPacientes((oldArray) => [...oldArray, ...paciente]);
 	};
 
-	return <PacientesContext.Provider value={{ pacientes, useAdd }}>{children}</PacientesContext.Provider>;
+	return <PacientesContext.Provider value={{ pacientes, useReset, useAdd }}>{children}</PacientesContext.Provider>;
 };
 

@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Tabela from '../components/lista';
 import { PacientsProvider } from '../hooks/usePacients';
 import Busca from '../components/busca';
+import Reset from '../components/reset';
 
 
 const Home = () => {
@@ -14,8 +15,9 @@ const Home = () => {
 			</Head>
 			<h1>Home</h1>
 			<PacientsProvider>
-				<Tabela />
-				<Busca />
+				<Tabela/>
+				<Busca/>
+				<Reset/>
 			</PacientsProvider>
 		</div>
 	);

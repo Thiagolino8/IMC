@@ -8,7 +8,7 @@ const HandleFetchCall = () => {
 		useAdd(form);
 	};
 	return (
-		<Button onClick={useFetch}>Buscar Pacientes</Button>
+		<Button onClick={useFetch}>Buscar com Fetch</Button>
 	)
 };
 
