@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
+	swcMinify: true,
+	webpack5: true,
+	experimental: {
+		// Enables the styled-components SWC transform
+		esmExternals: true,
+		concurrentFeature: true,
+		ServerComponents: true,
+	},
 	compiler: {
-		// ssr and displayName are configured by default
 		styledComponents: true,
 	},
 	webpack: (config, { dev, isServer }) => {
@@ -14,7 +21,7 @@ const nextConfig = {
 			});
 		}
 		return config;
-	}
+	},
 };
 
 module.exports = nextConfig
