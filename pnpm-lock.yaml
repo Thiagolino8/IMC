@@ -14,6 +14,7 @@ specifiers:
   react-dom: 17.0.2
   react-is: ^17.0.2
   styled-components: ^5.3.3
+  tslib: ^2.3.1
   typescript: 4.5.5
 
 dependencies:
@@ -26,6 +27,7 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-is: 17.0.2
   styled-components: 5.3.3_281a4fa50a045c9112baf635f3bc27a7
+  tslib: 2.3.1
 
 devDependencies:
   '@types/node': 17.0.18
@@ -2019,6 +2021,10 @@ packages:
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: true
+
+  /tslib/2.3.1:
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    dev: false
 
   /tsutils/3.21.0_typescript@4.5.5:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
