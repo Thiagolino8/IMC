@@ -4,7 +4,7 @@ import Td from '../styles/td';
 import Th from '../styles/th';
 
 const Tabela = () => {
-	const { pacientes } = usePacients();
+	const { pacientes, handleDelete } = usePacients();
 	return (
 		<Table>
 			<thead>
@@ -18,11 +18,11 @@ const Tabela = () => {
 			</thead>
 			<tbody>
 				{pacientes.map(({ nome, peso, altura, gordura, imc }) => (
-					<tr key={nome}>
+					<tr key={nome} onDoubleClick={() => handleDelete(nome)}>
 						<Td>{nome}</Td>
-						<Td>{peso}</Td>
-						<Td>{altura}</Td>
-						<Td>{gordura}</Td>
+						<Td>{peso.toFixed(2)}</Td>
+						<Td>{altura.toFixed(2)}</Td>
+						<Td>{gordura.toFixed(2)}</Td>
 						<Td>{imc.toFixed(2)}</Td>
 					</tr>
 				))}

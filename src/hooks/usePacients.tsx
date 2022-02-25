@@ -14,6 +14,7 @@ export interface Provider {
 	pacientes: Paciente[];
 	useAdd: (paciente: Paciente[]) => void;
 	useReset: () => void;
+	handleDelete: (nome: string) => void;
 }
 
 const initialPacientes: Paciente[] = [
@@ -38,15 +39,19 @@ export const PacientsProvider = ({ children }: { children: ReactNode }) => {
 		setPacientes(novoArray);
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	
-	const useReset = () => { 
+
+	const useReset = () => {
 		setPacientes(initialPacientes);
 	}
-	
+
 	const useAdd = (paciente: Paciente[]) => {
 		setPacientes((oldArray) => [...oldArray, ...paciente]);
 	};
 
-	return <PacientesContext.Provider value={{ pacientes, useReset, useAdd }}>{children}</PacientesContext.Provider>;
+	const handleDelete = (nome: string) => { 
+		setPacientes((oldArray) => oldArray.filter(p => p.nome !== nome));
+	}
+
+	return <PacientesContext.Provider value={{ pacientes, useReset, useAdd, handleDelete }}>{children}</PacientesContext.Provider>;
 };
 
