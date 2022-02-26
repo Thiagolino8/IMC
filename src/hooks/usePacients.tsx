@@ -1,23 +1,22 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
-import calcIMC from './useIMC';
+import { calcIMC } from './useIMC';
 
-export interface Paciente {
+export interface Pacient {
 	nome: string;
 	peso: number;
 	altura: number;
 	gordura: number;
 	imc: number;
-};
-
+}
 
 export interface Provider {
-	pacientes: Paciente[];
-	useAdd: (paciente: Paciente[]) => void;
+	pacients: Pacient[];
+	useAdd: (pacient: Pacient[]) => void;
 	useReset: () => void;
 	handleDelete: (nome: string) => void;
 }
 
-const initialPacientes: Paciente[] = [
+const initialPacients: Pacient[] = [
 	{ nome: 'Paulo', peso: 100, altura: 2.0, gordura: 10, imc: 0 },
 	{ nome: 'João', peso: 80, altura: 1.72, gordura: 40, imc: 0 },
 	{ nome: 'Maria', peso: 40, altura: 1.64, gordura: 14, imc: 0 },
@@ -25,33 +24,34 @@ const initialPacientes: Paciente[] = [
 	{ nome: 'Tatiana', peso: 46, altura: 1.55, gordura: 19, imc: 0 },
 ];
 
-export const PacientesContext = createContext({} as Provider);
-export const usePacients = () => useContext(PacientesContext);
+export const PacientsContext = createContext({} as Provider);
+export const usePacients = () => useContext(PacientsContext);
 
 export const PacientsProvider = ({ children }: { children: ReactNode }) => {
-	const [pacientes, setPacientes] = useState(initialPacientes);
+	const [pacients, setPacientes] = useState(initialPacients);
 
 	useEffect(() => {
-		const novoArray = pacientes.map(paciente => {
-			const imc = calcIMC(paciente)
-			return { ...paciente, imc };
-		})
-		setPacientes(novoArray);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
+		const newArray = pacients.map((pacient) => {
+			const imc = calcIMC(pacient);
+			return { ...pacient, imc };
+		});
+		setPacientes(newArray);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const useReset = () => {
-		setPacientes(initialPacientes);
-	}
-
-	const useAdd = (paciente: Paciente[]) => {
-		setPacientes((oldArray) => [...oldArray, ...paciente]);
+		setPacientes(initialPacients);
 	};
 
-	const handleDelete = (nome: string) => { 
-		setPacientes((oldArray) => oldArray.filter(p => p.nome !== nome));
-	}
+	const useAdd = (pacient: Pacient[]) => {
+		setPacientes((oldArray) => [...oldArray, ...pacient]);
+	};
 
-	return <PacientesContext.Provider value={{ pacientes, useReset, useAdd, handleDelete }}>{children}</PacientesContext.Provider>;
+	const handleDelete = (nome: string) => {
+		setPacientes((oldArray) => oldArray.filter((p) => p.nome !== nome));
+	};
+
+	return (
+		<PacientsContext.Provider value={{ pacients, useReset, useAdd, handleDelete }}>{children}</PacientsContext.Provider>
+	);
 };
-

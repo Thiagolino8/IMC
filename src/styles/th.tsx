@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Th = styled.th`
-	padding: 0.7em;
+export const Th = styled.th`
+	padding: 0.7rem;
 	margin: 0;
 	border: 1px solid #ccc;
 	text-align: center;
@@ -9,4 +9,3 @@ const Th = styled.th`
 	background-color: #eee;
 `;
 
-export default Th;

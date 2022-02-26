@@ -1,5 +1,3 @@
-import { Paciente } from "./usePacients";
+import { Pacient } from "./usePacients";
 
-const calcIMC = ({peso, altura}: Paciente) => peso / altura ** 2;
-
-export default calcIMC;
+export const calcIMC = ({peso, altura}: Pacient) => peso / altura ** 2;

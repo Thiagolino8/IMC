@@ -1,10 +1,10 @@
-import {usePacients} from '../hooks/usePacients';
-import Table from '../styles/table';
-import Td from '../styles/td';
-import Th from '../styles/th';
+import { usePacients } from '../hooks/usePacients';
+import { Table } from '../styles/table';
+import { Td } from '../styles/td';
+import { Th } from '../styles/th';
 
-const Tabela = () => {
-	const { pacientes, handleDelete } = usePacients();
+export const PacientsTable = () => {
+	const { pacients, handleDelete } = usePacients();
 	return (
 		<Table>
 			<thead>
@@ -17,7 +17,7 @@ const Tabela = () => {
 				</tr>
 			</thead>
 			<tbody>
-				{pacientes.map(({ nome, peso, altura, gordura, imc }) => (
+				{pacients.map(({ nome, peso, altura, gordura, imc }) => (
 					<tr key={nome} onDoubleClick={() => handleDelete(nome)}>
 						<Td>{nome}</Td>
 						<Td>{peso.toFixed(2)}</Td>
@@ -30,5 +30,3 @@ const Tabela = () => {
 		</Table>
 	);
 };
-
-export default Tabela;
