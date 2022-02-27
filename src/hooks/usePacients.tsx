@@ -36,8 +36,7 @@ export const PacientsProvider = ({ children }: { children: ReactNode }) => {
 			return { ...pacient, imc };
 		});
 		setPacientes(newArray);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [pacients]);
 
 	const useReset = () => {
 		setPacientes(initialPacients);
