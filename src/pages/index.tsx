@@ -12,7 +12,7 @@ const Home = () => {
 	return (
 		<div>
 			<Head>
-				<title>Fetcher</title>
+				<title>IMC</title>
 				<meta name='description' content='IMC Health Table' />
 				<link rel='icon' href='/favicon.svg' />
 			</Head>

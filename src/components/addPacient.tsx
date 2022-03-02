@@ -21,13 +21,13 @@ export const AddPacient = () => {
 		if (isSubmitSuccessful) {
 			reset({
 				nome: '',
-				peso: '',
-				altura: '',
-				gordura: '',
+				peso: '' as unknown as number,
+				altura: '' as unknown as number,
+				gordura: '' as unknown as number,
 			});
 		}
 	}, [isSubmitSuccessful, reset]);
-	const handleSubmitForm = (data: Pacient) => { 
+	const handleSubmitForm = (data: Pacient) => {
 			data.nome = data.nome
 				.toLowerCase()
 				.split(' ')
