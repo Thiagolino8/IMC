@@ -12,6 +12,7 @@ specifiers:
   preact-render-to-string: ^5.1.20
   react: 17.0.2
   react-dom: 17.0.2
+  react-hook-form: ^7.27.1
   react-is: ^17.0.2
   styled-components: ^5.3.3
   tslib: ^2.3.1
@@ -25,6 +26,7 @@ dependencies:
   preact-render-to-string: 5.1.20_preact@10.6.6
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-hook-form: 7.27.1_react@17.0.2
   react-is: 17.0.2
   styled-components: 5.3.3_281a4fa50a045c9112baf635f3bc27a7
   tslib: 2.3.1
@@ -1759,6 +1761,15 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
+    dev: false
+
+  /react-hook-form/7.27.1_react@17.0.2:
+    resolution: {integrity: sha512-N3a7A6zIQ8DJeThisVZGtOUabTbJw+7DHJidmB9w8m3chckv2ZWKb5MHps9d2pPJqmCDoWe53Bos56bYmJms5w==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17
+    dependencies:
+      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

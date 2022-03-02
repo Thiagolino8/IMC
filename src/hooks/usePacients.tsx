@@ -1,4 +1,13 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react';
+import {
+	createContext,
+	Dispatch,
+	ReactNode,
+	SetStateAction,
+	useCallback,
+	useContext,
+	useEffect,
+	useState,
+} from 'react';
 import { calcIMC } from './useIMC';
 
 export interface Pacient {
@@ -11,7 +20,7 @@ export interface Pacient {
 
 export interface Provider {
 	pacients: Pacient[];
-	useAdd: (pacient: Pacient[]) => void;
+	handleAdd: (pacient: Pacient[]) => void;
 	useReset: () => void;
 	handleDelete: (nome: string) => void;
 }
@@ -28,29 +37,48 @@ export const PacientsContext = createContext({} as Provider);
 export const usePacients = () => useContext(PacientsContext);
 
 export const PacientsProvider = ({ children }: { children: ReactNode }) => {
-	const [pacients, setPacientes] = useState(initialPacients);
+	const [pacients, setPacients] = useState(initialPacients);
 
-	useEffect(() => {
-		const newArray = pacients.map((pacient) => {
-			const imc = calcIMC(pacient);
-			return { ...pacient, imc };
+	const fixIMC = () => {
+		setPacients((oldArray) => {
+			return oldArray.map((pacient) => {
+				const imc = calcIMC(pacient);
+				return { ...pacient, imc };
+			}, []);
 		});
-		setPacientes(newArray);
-	}, [pacients]);
-
-	const useReset = () => {
-		setPacientes(initialPacients);
 	};
 
-	const useAdd = (pacient: Pacient[]) => {
-		setPacientes((oldArray) => [...oldArray, ...pacient]);
+	const useReset = () => {
+		setPacients(initialPacients);
+		fixIMC();
+	};
+
+	const handleAdd = (newPacients: Pacient[]) => {
+		let jaExiste = false
+		pacients.forEach((pacient) => {
+			newPacients.forEach((newPacient) => {
+				if (pacient.nome === newPacient.nome) {
+					alert('Paciente já cadastrado');
+					jaExiste = true;
+				}
+			})
+		})
+		if (!jaExiste) {
+			setPacients((oldArray) => [...oldArray, ...newPacients]);
+		}
 	};
 
 	const handleDelete = (nome: string) => {
-		setPacientes((oldArray) => oldArray.filter((p) => p.nome !== nome));
+		setPacients((oldArray) => oldArray.filter((p) => p.nome !== nome));
 	};
 
+	useEffect(() => {
+		fixIMC();
+	}, []);
+
 	return (
-		<PacientsContext.Provider value={{ pacients, useReset, useAdd, handleDelete }}>{children}</PacientsContext.Provider>
+		<PacientsContext.Provider value={{ pacients, useReset, handleAdd, handleDelete }}>
+			{children}
+		</PacientsContext.Provider>
 	);
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Campo } from "./campo";
+import { Input } from "./input";
 
-export const CampoMedio = styled(Campo)`
+export const InputMedio = styled(Input)`
 	display: inline-block;
 	padding-right: 0.5rem;
 `;
