@@ -58,13 +58,14 @@ export const PacientsProvider = ({ children }: { children: ReactNode }) => {
 		pacients.forEach((pacient) => {
 			newPacients.forEach((newPacient) => {
 				if (pacient.nome === newPacient.nome) {
-					alert('Paciente já cadastrado');
 					jaExiste = true;
 				}
 			})
 		})
 		if (!jaExiste) {
 			setPacients((oldArray) => [...oldArray, ...newPacients]);
+		} else {
+			alert('O(s) paciente(s) já existe(m) na tabela')
 		}
 	};
 
