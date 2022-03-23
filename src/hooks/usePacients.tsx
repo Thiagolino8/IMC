@@ -1,13 +1,5 @@
-import {
-	createContext,
-	Dispatch,
-	ReactNode,
-	SetStateAction,
-	useCallback,
-	useContext,
-	useEffect,
-	useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import create from 'zustand';
 import { calcIMC } from './useIMC';
 
 export interface Pacient {
@@ -18,11 +10,12 @@ export interface Pacient {
 	imc: number;
 }
 
-export interface Provider {
+interface PacientStore {
 	pacients: Pacient[];
-	handleAdd: (pacient: Pacient[]) => void;
-	useReset: () => void;
-	handleDelete: (nome: string) => void;
+	reset: () => void;
+	add: (pacients: Pacient[]) => void;
+	deletePacient: (nome: string) => void;
+	doIMC: (pacients: Pacient[]) => Pacient[];
 }
 
 const initialPacients: Pacient[] = [
@@ -33,53 +26,31 @@ const initialPacients: Pacient[] = [
 	{ nome: 'Tatiana', peso: 46, altura: 1.55, gordura: 19, imc: 0 },
 ];
 
-export const PacientsContext = createContext({} as Provider);
-export const usePacients = () => useContext(PacientsContext);
-
-export const PacientsProvider = ({ children }: { children: ReactNode }) => {
-	const [pacients, setPacients] = useState(initialPacients);
-
-	const fixIMC = () => {
-		setPacients((oldArray) => {
-			return oldArray.map((pacient) => {
-				const imc = calcIMC(pacient);
-				return { ...pacient, imc };
-			}, []);
-		});
-	};
-
-	const useReset = () => {
-		setPacients(initialPacients);
-		fixIMC();
-	};
-
-	const handleAdd = (newPacients: Pacient[]) => {
-		let jaExiste = false
-		pacients.forEach((pacient) => {
-			newPacients.forEach((newPacient) => {
-				if (pacient.nome === newPacient.nome) {
-					jaExiste = true;
-				}
-			})
-		})
-		if (!jaExiste) {
-			setPacients((oldArray) => [...oldArray, ...newPacients]);
-		} else {
-			alert('O(s) paciente(s) já existe(m) na tabela')
-		}
-	};
-
-	const handleDelete = (nome: string) => {
-		setPacients((oldArray) => oldArray.filter((p) => p.nome !== nome));
-	};
-
-	useEffect(() => {
-		fixIMC();
-	}, []);
-
-	return (
-		<PacientsContext.Provider value={{ pacients, useReset, handleAdd, handleDelete }}>
-			{children}
-		</PacientsContext.Provider>
-	);
-};
+export const useStore = create<PacientStore>((set) => ({
+	pacients: initialPacients,
+	reset: () => set(state => ({ pacients: state.doIMC(initialPacients) })),
+	add: (newPacients: Pacient[]) =>
+		set((state) => {
+			let jaExiste = false;
+			state.pacients.forEach((pacient) => {
+				newPacients.forEach((newPacient) => {
+					if (pacient.nome === newPacient.nome) {
+						jaExiste = true;
+						newPacients = newPacients.filter((pac) => pac.nome !== pacient.nome);
+					}
+				});
+			});
+			if (!jaExiste) {
+				state.doIMC(newPacients);
+			} else {
+				alert('Paciente(s) já existente(s) na tabela');
+			}
+				return { pacients: [...state.pacients, ...newPacients] };
+		}),
+	deletePacient: (nome: string) => {
+		set((state) => ({
+			pacients: state.pacients.filter((pacient) => pacient.nome !== nome),
+		}));
+	},
+	doIMC: (pacients: Pacient[]) => pacients.map((pacient) => ({ ...pacient, imc: pacient.peso / pacient.altura ** 2 })),
+}));

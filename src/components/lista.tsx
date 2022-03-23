@@ -1,10 +1,11 @@
-import { usePacients } from '../hooks/usePacients';
+import { useStore } from '../hooks/usePacients';
 import { Table } from '../styles/table';
 import { Td } from '../styles/td';
 import { Th } from '../styles/th';
 
 export const PacientsTable = () => {
-	const { pacients, handleDelete } = usePacients();
+	const { pacients } = useStore();
+	const {deletePacient} = useStore();
 	return (
 		<Table>
 			<thead>
@@ -18,7 +19,7 @@ export const PacientsTable = () => {
 			</thead>
 			<tbody>
 				{pacients.map(({ nome, peso, altura, gordura, imc }) => (
-					<tr key={nome} onDoubleClick={() => handleDelete(nome)}>
+					<tr key={nome} onDoubleClick={() => deletePacient(nome)}>
 						<Td>{nome}</Td>
 						<Td>{peso.toFixed(2)}</Td>
 						<Td>{altura.toFixed(2)}</Td>

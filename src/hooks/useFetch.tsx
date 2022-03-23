@@ -1,11 +1,11 @@
 import { Button } from '../styles/button';
-import { usePacients } from './usePacients';
+import { useStore } from './usePacients';
 export const HandleFetchCall = () => {
-	const { handleAdd } = usePacients();
+	const { add } = useStore();
 	const useFetch = async () => {
 		const response = await fetch('https://api-pacientes.herokuapp.com/pacientes');
 		const form = await response.json();
-		handleAdd(form);
+		add(form);
 	};
 	return <Button onClick={useFetch}>Buscar com Fetch</Button>;
 };

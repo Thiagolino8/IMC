@@ -7,6 +7,7 @@ specifiers:
   axios: ^0.26.0
   eslint: 8.9.0
   eslint-config-next: 12.1.0
+  jotai: ^1.6.1
   next: 12.1.0
   preact: ^10.6.6
   preact-render-to-string: ^5.1.20
@@ -17,10 +18,12 @@ specifiers:
   styled-components: ^5.3.3
   tslib: ^2.3.1
   typescript: 4.5.5
+  zustand: ^3.7.1
 
 dependencies:
   '@types/styled-components': 5.1.23
   axios: 0.26.0
+  jotai: 1.6.1_react@17.0.2
   next: 12.1.0_react-dom@17.0.2+react@17.0.2
   preact: 10.6.6
   preact-render-to-string: 5.1.20_preact@10.6.6
@@ -30,6 +33,7 @@ dependencies:
   react-is: 17.0.2
   styled-components: 5.3.3_281a4fa50a045c9112baf635f3bc27a7
   tslib: 2.3.1
+  zustand: 3.7.1_react@17.0.2
 
 devDependencies:
   '@types/node': 17.0.18
@@ -1395,6 +1399,43 @@ packages:
     resolution: {integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=}
     dev: true
 
+  /jotai/1.6.1_react@17.0.2:
+    resolution: {integrity: sha512-iNKHmpKGN31KXDqxGLsplb4HLTroYtiM7oBEQ9leyoXSEGQGUZKK5IOV4kN6fUmkBSJbwb5WnmInYOYzpjIDOw==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@babel/core': '*'
+      '@babel/template': '*'
+      '@urql/core': '*'
+      immer: '*'
+      optics-ts: '*'
+      react: '>=16.8'
+      react-query: '*'
+      valtio: '*'
+      wonka: '*'
+      xstate: '*'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@babel/template':
+        optional: true
+      '@urql/core':
+        optional: true
+      immer:
+        optional: true
+      optics-ts:
+        optional: true
+      react-query:
+        optional: true
+      valtio:
+        optional: true
+      wonka:
+        optional: true
+      xstate:
+        optional: true
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -2123,3 +2164,15 @@ packages:
   /yallist/4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
     dev: true
+
+  /zustand/3.7.1_react@17.0.2:
+    resolution: {integrity: sha512-wHBCZlKj+bg03/hP+Tzv24YhnqqP8MCeN9ECPDXoF01062SIbnfl3j9O0znkDw1lNTY0a8WN3F///a0UhhaEqg==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      react: '>=16.8'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 17.0.2
+    dev: false

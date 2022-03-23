@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { PacientsTable } from '../components/lista';
-import { PacientsProvider } from '../hooks/usePacients';
 import { Search } from '../components/search';
 import { Reset } from '../components/reset';
 import { AddPacient } from '../components/addPacient';
@@ -16,7 +15,6 @@ const Home = () => {
 				<meta name='description' content='IMC Health Table' />
 				<link rel='icon' href='/favicon.svg' />
 			</Head>
-			<PacientsProvider>
 				<Container>
 					<Header>
 						<h1>Tabela de Pacientes</h1>
@@ -29,7 +27,6 @@ const Home = () => {
 					<PacientsTable />
 				</Container>
 				<AddPacient />
-			</PacientsProvider>
 		</div>
 	);
 };

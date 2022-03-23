@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { usePacients, Pacient } from '../hooks/usePacients';
+import { useEffect } from 'react';
+import { Pacient, useStore } from '../hooks/usePacients';
 import { Button } from '../styles/button';
 import { Input } from '../styles/input';
 import { InputMedio } from '../styles/inputMedio';
@@ -16,7 +16,7 @@ export const AddPacient = () => {
 		reset,
 		formState: { isSubmitSuccessful }
 	} = useForm<Pacient>();
-	const { handleAdd } = usePacients();
+	const { add } = useStore();
   useEffect(() => {
 		if (isSubmitSuccessful) {
 			reset({
@@ -39,7 +39,7 @@ export const AddPacient = () => {
 			data.altura = Number(data.altura);
 			data.gordura = Number(data.gordura);
 		data.imc = calcIMC(data);
-		handleAdd([data]);
+		add([data]);
 	}
 	return (
 		<Container>
