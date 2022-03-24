@@ -56,7 +56,7 @@ export const AddPacient = () => {
 							id='peso'
 							{...register('peso')}
 							type='number'
-							placeholder='digite o peso do seu paciente'
+							placeholder='Digite o Peso'
 							required
 						/>
 					</FormArea>
@@ -67,7 +67,7 @@ export const AddPacient = () => {
 							{...register('altura')}
 							type='number'
 							step='0.01'
-							placeholder='digite a altura do seu paciente'
+							placeholder='Digite a Altura'
 							required
 						/>
 					</FormArea>
@@ -77,7 +77,7 @@ export const AddPacient = () => {
 							id='gordura'
 							{...register('gordura')}
 							type='number'
-							placeholder='digite a porcentagem de gordura do seu paciente'
+							placeholder='Digite a Porcentagem de Gordura'
 							required
 						/>
 					</FormArea>
