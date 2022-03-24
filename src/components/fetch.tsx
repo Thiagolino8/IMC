@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { HandleAxiosCall } from '../hooks/useAxios';
-import { HandleFetchCall } from '../hooks/useFetch';
 import { Button } from '../styles/button';
+import { fetcher, axiosFetcher } from '../stores/store';
 
-export const Search = () => {
+export const Fetch = () => {
 	const [Engine, setEngine] = useState(true);
 	return (
 		<>
-			{Engine ? <HandleFetchCall /> : <HandleAxiosCall />}
+			<Button onClick={Engine ? fetcher : axiosFetcher}>{Engine ? 'Buscar com Fetch' : 'Buscar com Axios'}</Button>
 			<Button onClick={() => setEngine(!Engine)}>Mudar Motor</Button>
 		</>
 	);

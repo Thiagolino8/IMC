@@ -4,8 +4,7 @@ import { Td } from '../styles/td';
 import { Th } from '../styles/th';
 
 export const PacientsTable = () => {
-	const { pacients } = useStore();
-	const { deletePacient } = useStore();
+	const { filteredPacients, deletePacient } = useStore();
 	return (
 		<Table>
 			<thead>
@@ -18,7 +17,7 @@ export const PacientsTable = () => {
 				</tr>
 			</thead>
 			<tbody>
-				{pacients.map(({ nome, peso, altura, gordura, imc }) => (
+				{filteredPacients.map(({ nome, peso, altura, gordura, imc }) => (
 					<tr key={nome} onDoubleClick={() => deletePacient(nome)}>
 						<Td>{nome}</Td>
 						<Td>{peso.toFixed(2)}</Td>

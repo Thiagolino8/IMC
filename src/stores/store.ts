@@ -1,3 +1,4 @@
+import axios from 'axios';
 import create from 'zustand';
 
 export interface Pacient {
@@ -10,9 +11,13 @@ export interface Pacient {
 
 interface PacientStore {
 	pacients: Pacient[];
+	filteredPacients: Pacient[];
+	filter: string;
 	reset: () => void;
 	add: (pacients: Pacient[]) => void;
 	deletePacient: (nome: string) => void;
+	setFilteredPacients: (filter: string) => void;
+	setFilter: (filter: string) => void;
 	doIMC: (pacient: Pacient) => Pacient;
 }
 
@@ -26,7 +31,7 @@ const initialPacients: Pacient[] = [
 
 export const useStore = create<PacientStore>((set) => ({
 	pacients: initialPacients,
-	filteredPacients: initialPacients,
+	filteredPacients: [],
 	filter: '',
 	reset: () => set((state) => ({ pacients: initialPacients.map((pacient) => state.doIMC(pacient)) })),
 	add: (newPacients: Pacient[]) =>
@@ -52,5 +57,24 @@ export const useStore = create<PacientStore>((set) => ({
 			pacients: state.pacients.filter((pacient) => pacient.nome !== nome),
 		}));
 	},
+	setFilteredPacients: (filter: string) => set((state) => ({ filteredPacients: state.pacients.filter((pacient) => pacient.nome.includes(filter)) })),
+	setFilter: (filter: string) => {
+		set((state) => ({
+			filter,
+			filteredPacients: state.pacients.filter((pacient) => pacient.nome.toLowerCase().includes(filter.toLowerCase())),
+		}));
+	},
 	doIMC: (pacient: Pacient) => ({ ...pacient, imc: pacient.peso / pacient.altura ** 2 }),
 }));
+
+
+export const fetcher = async () => {
+		const response = await fetch('https://api-pacientes.herokuapp.com/pacientes');
+		const form = await response.json();
+		useStore.getState().add(form);
+}
+
+export const axiosFetcher = async () => {
+	const form = await axios.get('https://api-pacientes.herokuapp.com/pacientes');
+	useStore.getState().add(form.data);
+};

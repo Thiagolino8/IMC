@@ -5,10 +5,13 @@ import { GlobalStyle } from '../styles/global';
 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-	const { reset } = useStore();
+	const { pacients, reset, setFilteredPacients } = useStore();
 	useEffect(() => {
 		reset();
 	}, []);
+	useEffect(() => {
+		setFilteredPacients('');
+	}, [pacients]);
 	return (
 	<>
 		<GlobalStyle />

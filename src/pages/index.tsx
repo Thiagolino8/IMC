@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { PacientsTable } from '../components/lista';
-import { Search } from '../components/search';
+import { Fetch } from '../components/fetch';
 import { Reset } from '../components/reset';
 import { AddPacient } from '../components/addPacient';
 import { Container } from '../styles/container';
@@ -21,7 +21,7 @@ const Home = () => {
 						<h2>Duplo Click em Um Paciente para excluí-lo</h2>
 					</Header>
 					<BtnsContainer>
-						<Search />
+						<Fetch />
 						<Reset />
 					</BtnsContainer>
 					<PacientsTable />
