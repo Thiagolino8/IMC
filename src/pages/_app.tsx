@@ -5,12 +5,12 @@ import { GlobalStyle } from '../styles/global';
 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-	const { pacients, reset, setFilteredPacients } = useStore();
+	const { pacients, reset, setFilter} = useStore();
 	useEffect(() => {
 		reset();
 	}, []);
 	useEffect(() => {
-		setFilteredPacients('');
+		setFilter('');
 	}, [pacients]);
 	return (
 	<>

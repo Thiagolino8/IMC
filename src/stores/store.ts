@@ -16,7 +16,6 @@ interface PacientStore {
 	reset: () => void;
 	add: (pacients: Pacient[]) => void;
 	deletePacient: (nome: string) => void;
-	setFilteredPacients: (filter: string) => void;
 	setFilter: (filter: string) => void;
 	doIMC: (pacient: Pacient) => Pacient;
 }
@@ -57,7 +56,6 @@ export const useStore = create<PacientStore>((set) => ({
 			pacients: state.pacients.filter((pacient) => pacient.nome !== nome),
 		}));
 	},
-	setFilteredPacients: (filter: string) => set((state) => ({ filteredPacients: state.pacients.filter((pacient) => pacient.nome.includes(filter)) })),
 	setFilter: (filter: string) => {
 		set((state) => ({
 			filter,

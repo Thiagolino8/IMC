@@ -51,7 +51,7 @@ export const AddPacient = () => {
 						<Input id='nome' {...register('nome')} type='text' placeholder='digite o nome do seu paciente' required />
 					</FormArea>
 					<FormArea>
-						<label htmlFor='peso'>Peso:</label>
+						<label htmlFor='peso'>Peso em Kg:</label>
 						<InputMedio
 							id='peso'
 							{...register('peso')}
@@ -61,7 +61,7 @@ export const AddPacient = () => {
 						/>
 					</FormArea>
 					<FormArea>
-						<label htmlFor='altura'>Altura:</label>
+						<label htmlFor='altura'>Altura em Metros:</label>
 						<InputMedio
 							id='altura'
 							{...register('altura')}
