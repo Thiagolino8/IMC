@@ -48,7 +48,7 @@ export const AddPacient = () => {
 				<FormContainer>
 					<FormArea>
 						<label htmlFor='nome'>Nome:</label>
-						<Input id='nome' {...register('nome')} type='text' placeholder='digite o nome do seu paciente' required />
+						<Input id='nome' {...register('nome')} type='text' placeholder='Digite o nome do seu paciente' required />
 					</FormArea>
 					<FormArea>
 						<label htmlFor='peso'>Peso em Kg:</label>
