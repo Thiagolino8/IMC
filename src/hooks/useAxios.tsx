@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Button } from '../styles/button';
-import { useStore } from './usePacients';
+import { useStore } from '../stores/store';
 export const HandleAxiosCall = () => {
 	const { add } = useStore();
 	const useAxios = async () => {

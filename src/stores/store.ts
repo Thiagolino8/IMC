@@ -1,6 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import create from 'zustand';
-import { calcIMC } from './useIMC';
 
 export interface Pacient {
 	nome: string;
@@ -15,7 +13,7 @@ interface PacientStore {
 	reset: () => void;
 	add: (pacients: Pacient[]) => void;
 	deletePacient: (nome: string) => void;
-	doIMC: (pacients: Pacient[]) => Pacient[];
+	doIMC: (pacient: Pacient) => Pacient;
 }
 
 const initialPacients: Pacient[] = [
@@ -28,7 +26,9 @@ const initialPacients: Pacient[] = [
 
 export const useStore = create<PacientStore>((set) => ({
 	pacients: initialPacients,
-	reset: () => set(state => ({ pacients: state.doIMC(initialPacients) })),
+	filteredPacients: initialPacients,
+	filter: '',
+	reset: () => set((state) => ({ pacients: initialPacients.map((pacient) => state.doIMC(pacient)) })),
 	add: (newPacients: Pacient[]) =>
 		set((state) => {
 			let jaExiste = false;
@@ -41,16 +41,16 @@ export const useStore = create<PacientStore>((set) => ({
 				});
 			});
 			if (!jaExiste) {
-				state.doIMC(newPacients);
+				newPacients = newPacients.map((pacient) => state.doIMC(pacient));
 			} else {
 				alert('Paciente(s) já existente(s) na tabela');
 			}
-				return { pacients: [...state.pacients, ...newPacients] };
+			return { pacients: [...state.pacients, ...newPacients] };
 		}),
 	deletePacient: (nome: string) => {
 		set((state) => ({
 			pacients: state.pacients.filter((pacient) => pacient.nome !== nome),
 		}));
 	},
-	doIMC: (pacients: Pacient[]) => pacients.map((pacient) => ({ ...pacient, imc: pacient.peso / pacient.altura ** 2 })),
+	doIMC: (pacient: Pacient) => ({ ...pacient, imc: pacient.peso / pacient.altura ** 2 }),
 }));

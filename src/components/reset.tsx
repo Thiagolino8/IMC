@@ -1,4 +1,4 @@
-import { useStore } from '../hooks/usePacients';
+import { useStore } from '../stores/store';
 import { Button } from '../styles/button';
 
 export const Reset = () => {

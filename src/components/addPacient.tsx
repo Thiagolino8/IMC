@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { Pacient, useStore } from '../hooks/usePacients';
+import { Pacient, useStore } from '../stores/store';
 import { Button } from '../styles/button';
 import { Input } from '../styles/input';
 import { InputMedio } from '../styles/inputMedio';
 import { Container } from '../styles/container';
 import { FormArea } from '../styles/formArea';
 import { useForm } from 'react-hook-form';
-import { calcIMC } from '../hooks/useIMC';
 
 
 export const AddPacient = () => {
@@ -16,7 +15,7 @@ export const AddPacient = () => {
 		reset,
 		formState: { isSubmitSuccessful }
 	} = useForm<Pacient>();
-	const { add } = useStore();
+	const { add, doIMC } = useStore();
   useEffect(() => {
 		if (isSubmitSuccessful) {
 			reset({
@@ -37,8 +36,8 @@ export const AddPacient = () => {
 				.join(' ');
 			data.peso = Number(data.peso);
 			data.altura = Number(data.altura);
-			data.gordura = Number(data.gordura);
-		data.imc = calcIMC(data);
+		data.gordura = Number(data.gordura);
+		data = doIMC(data);
 		add([data]);
 	}
 	return (

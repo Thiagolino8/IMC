@@ -1,5 +1,5 @@
 import { Button } from '../styles/button';
-import { useStore } from './usePacients';
+import { useStore } from '../stores/store';
 export const HandleFetchCall = () => {
 	const { add } = useStore();
 	const useFetch = async () => {

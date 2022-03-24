@@ -1,11 +1,11 @@
-import { useStore } from '../hooks/usePacients';
+import { useStore } from '../stores/store';
 import { Table } from '../styles/table';
 import { Td } from '../styles/td';
 import { Th } from '../styles/th';
 
 export const PacientsTable = () => {
 	const { pacients } = useStore();
-	const {deletePacient} = useStore();
+	const { deletePacient } = useStore();
 	return (
 		<Table>
 			<thead>
