@@ -1,5 +1,6 @@
-import axios from 'axios';
-import create from 'zustand';
+import axios from 'axios'; import create from 'zustand'
+import { immer } from 'zustand/middleware/immer'
+import { persist, devtools } from 'zustand/middleware'
 
 export interface Pacient {
 	nome: string;
@@ -27,49 +28,50 @@ const initialPacients: Pacient[] = [
 	{ nome: 'Douglas', peso: 85, altura: 1.73, gordura: 24, imc: 0 },
 	{ nome: 'Tatiana', peso: 46, altura: 1.55, gordura: 19, imc: 0 },
 ];
-
-export const useStore = create<PacientStore>((set) => ({
-	pacients: initialPacients,
-	filteredPacients: [],
-	filter: '',
-	reset: () => set((state) => ({ pacients: initialPacients.map((pacient) => state.doIMC(pacient)) })),
-	add: (newPacients: Pacient[]) =>
-		set((state) => {
-			let jaExiste = false;
-			state.pacients.forEach((pacient) => {
-				newPacients.forEach((newPacient) => {
-					if (pacient.nome === newPacient.nome) {
-						jaExiste = true;
-						newPacients = newPacients.filter((pac) => pac.nome !== pacient.nome);
-					}
-				});
-			});
-			if (!jaExiste) {
-				newPacients = newPacients.map((pacient) => state.doIMC(pacient));
-			} else {
-				alert('Paciente(s) já existente(s) na tabela');
-			}
-			return { pacients: [...state.pacients, ...newPacients] };
-		}),
-	deletePacient: (nome: string) => {
-		set((state) => ({
-			pacients: state.pacients.filter((pacient) => pacient.nome !== nome),
-		}));
-	},
-	setFilter: (filter: string) => {
-		set((state) => ({
-			filter,
-			filteredPacients: state.pacients.filter((pacient) => pacient.nome.toLowerCase().includes(filter.toLowerCase())),
-		}));
-	},
-	doIMC: (pacient: Pacient) => ({ ...pacient, imc: pacient.peso / pacient.altura ** 2 }),
-}));
+export const useStore = create<PacientStore>()(
+		immer(
+			persist(
+				devtools((set) => ({
+					pacients: initialPacients,
+					filteredPacients: [],
+					filter: '',
+					reset: () => set((state) => ({ pacients: initialPacients.map((pacient) => state.doIMC(pacient)) })),
+					add: (newPacients: Pacient[]) =>
+						set((state) => {
+							let jaExiste = false;
+							state.pacients.forEach((pacient) => {
+								newPacients.forEach((newPacient) => {
+									if (pacient.nome === newPacient.nome) {
+										jaExiste = true;
+										newPacients = newPacients.filter((pac) => pac.nome !== pacient.nome);
+									}
+								});
+							});
+							if (!jaExiste) {
+								newPacients = newPacients.map((pacient) => state.doIMC(pacient));
+							} else {
+								alert('Paciente(s) já existente(s) na tabela');
+							}
+							return { pacients: [...state.pacients, ...newPacients] };
+						}),
+					deletePacient: (nome: string) => {
+						set((state) => ({
+							pacients: state.pacients.filter((pacient) => pacient.nome !== nome),
+						}));
+					},
+					setFilter: (filter: string) => {
+						set(() => ({
+							filter
+						}));
+					},
+					doIMC: (pacient: Pacient) => ({ ...pacient, imc: pacient.peso / pacient.altura ** 2 }),
+				})), {name: 'pacientStore'})))
 
 
 export const fetcher = async () => {
-		const response = await fetch('https://api-pacientes.herokuapp.com/pacientes');
-		const form = await response.json();
-		useStore.getState().add(form);
+	const response = await fetch('https://api-pacientes.herokuapp.com/pacientes');
+	const form = await response.json();
+	useStore.getState().add(form);
 }
 
 export const axiosFetcher = async () => {

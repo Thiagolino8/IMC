@@ -1,22 +1,21 @@
-import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
-import { useStore } from '../stores/store';
-import { GlobalStyle } from '../styles/global';
+import '../index.css'
 
+import { useEffect } from 'react'
+
+import { useStore } from '../stores/store'
+
+import type { AppProps } from 'next/app'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-	const { pacients, reset, setFilter} = useStore();
+	const { reset } = useStore((state) => ({ reset: state.reset }))
 	useEffect(() => {
-		reset();
-	}, []);
-	useEffect(() => {
-		setFilter('');
-	}, [pacients]);
+		reset()
+	}, [])
 	return (
-	<>
-		<GlobalStyle />
-		<Component {...pageProps} />
-	</>
-)};
+		<>
+			<Component {...pageProps} />
+		</>
+	)
+}
 
-export default MyApp;
+export default MyApp
